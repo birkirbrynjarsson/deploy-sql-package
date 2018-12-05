@@ -17,7 +17,8 @@ def getSqlPackage():
     programFiles = os.getenv('ProgramFiles')
     sqlpackage = '{}\\Microsoft SQL Server\\150\\DAC\\bin\\SqlPackage.exe'.format(programFiles)
     if not os.path.isfile(sqlpackage):
-        print('SqlPackage.exe not found at: {}'.format(sqlpackage))
+        print('SqlPackage.exe was not found at: {}'.format(sqlpackage))
+        print('SqlPackage can be downloaded from Microsoft\'s website!')
         quit()
     return sqlpackage
 

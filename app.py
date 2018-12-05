@@ -1,3 +1,4 @@
+import json
 import os
 import subprocess
 
@@ -8,7 +9,7 @@ def parseargs():
         prog='AGR Database Deployment',
         description='Database deployment script for AGR db development'
     )
-    parser.add_argument('configfile', type=argparse.FileType('r'), help='config file for deployment with SqlPackage')
+    parser.add_argument('configfile', type=argparse.FileType('r'), help='JSON deployment configuration file passed to SqlPackage')
     return parser.parse_args()
 
 
@@ -23,15 +24,29 @@ def getSqlPackage():
     return sqlpackage
 
 
-def deployDB(config):
-    sqlPackage = getSqlPackage()        
-    print(sqlPackage)
-    subprocess.run(['ls', '-al'])
-    # for line in config:
-    #     print(line.strip())
+# Takes as input a dictionary of SqlPackage arguments and returns them as a single string
+def getSqlPackageArguments(arguments):
+    args = []
+    for arg in arguments:
+        if isinstance(arguments[arg], dict):
+            for value in arguments[arg]:
+                args.append('/{}:{}={}'.format(arg, value, arguments[arg][value]))
+        else:
+            args.append('/{}:{}'.format(arg, arguments[arg]))
+    return ' '.join(args)
+
+
+def deployDB(configfile):
+    sqlPackage = getSqlPackage()
+    configurations = json.load(configfile)
+    
+    for config in configurations:
+        args = getSqlPackageArguments(configurations[config])
+        print(config)
+        # subprocess.run([sqlPackage, args])
 
 
 
 if __name__ == '__main__':
     args = parseargs()
-    deployDB(args.configfile.readlines())
+    deployDB(args.configfile)

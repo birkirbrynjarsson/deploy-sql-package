@@ -1,9 +1,11 @@
 {
     "Production": {
         "Action": "Publish",
-        "SourceFile": "C:\\AGR\\AGR5_DEV\\agr5\\agr-databases\\development\\dev_prod\\bin\\Debug\\dev_prod.dacpac",
+        "SourceFile": "development\\dev_prod\\bin\\Debug\\dev_prod.dacpac",
         "TargetDatabaseName": "agr_prod",
-        "TargetServerName": "localhost",
+        "TargetServerName": "10.0.2.2",
+        "TargetUser": "SA",
+        "TargetPassword": "12345678!",
         "p": {
             "IncludeCompositeObjects": true,
             "CompareUsingTargetCollation": true,
@@ -12,9 +14,11 @@
     },
     "Staging": {
         "Action": "Publish",
-        "SourceFile": "C:\\AGR\\AGR5_DEV\\agr5\\agr-databases\\development\\dev_stg_nav2009\\bin\\Debug\\dev_stg_nav2009.dacpac",
+        "SourceFile": "development\\dev_stg_nav2009\\bin\\Debug\\dev_stg_nav2009.dacpac",
         "TargetDatabaseName": "agr_stg_nav2009",
-        "TargetServerName": "localhost",
+        "TargetServerName": "10.0.2.2",
+        "TargetUser": "SA",
+        "TargetPassword": "12345678!",
         "p": {
             "IncludeCompositeObjects": true,
             "CompareUsingTargetCollation": true,
@@ -28,9 +32,11 @@
     },
     "BM": {
         "Action": "Publish",
-        "SourceFile": "C:\\AGR\\AGR5_DEV\\agr5\\agr-databases\\development\\dev_bm_prod\\bin\\Debug\\dev_bm_prod.dacpac",
+        "SourceFile": "development\\dev_bm_prod\\bin\\Debug\\dev_bm_prod.dacpac",
         "TargetDatabaseName": "agr_prod_bm",
-        "TargetServerName": "localhost",
+        "TargetServerName": "10.0.2.2",
+        "TargetUser": "SA",
+        "TargetPassword": "12345678!",
         "p": {
             "IncludeCompositeObjects": true,
             "CompareUsingTargetCollation": true,

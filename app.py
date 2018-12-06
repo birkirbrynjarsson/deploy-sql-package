@@ -14,7 +14,7 @@ def parseargs():
 
 
 # Checks if SqlPackage is installed and returns its path
-def getSqlPackage():
+def getSqlPackageExecutable():
     programFiles = os.getenv('ProgramFiles')
     sqlpackage = '{}\\Microsoft SQL Server\\150\\DAC\\bin\\SqlPackage.exe'.format(programFiles)
     if not os.path.isfile(sqlpackage):
@@ -28,22 +28,23 @@ def getSqlPackage():
 def getSqlPackageArguments(arguments):
     args = []
     for arg in arguments:
-        if isinstance(arguments[arg], dict):
+        if type(arguments[arg]) is dict:
             for value in arguments[arg]:
                 args.append('/{}:{}={}'.format(arg, value, arguments[arg][value]))
         else:
             args.append('/{}:{}'.format(arg, arguments[arg]))
-    return ' '.join(args)
+    return args
 
 
 def deployDB(configfile):
-    sqlPackage = getSqlPackage()
+    sqlPackage = getSqlPackageExecutable()
     configurations = json.load(configfile)
     
     for config in configurations:
         args = getSqlPackageArguments(configurations[config])
-        print(config)
-        # subprocess.run([sqlPackage, args])
+        sqlPackageWithArgs = [sqlPackage] + args
+        print('\n\n\n--- : {}:\n\t{}\n\n'.format(config, sqlPackageWithArgs))
+        subprocess.run(sqlPackageWithArgs)
 
 
 

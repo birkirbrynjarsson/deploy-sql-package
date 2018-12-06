@@ -1,5 +1,7 @@
 import json
 import os
+import platform
+from shutil import which
 import subprocess
 
 import argparse
@@ -15,11 +17,12 @@ def parseargs():
 
 # Checks if SqlPackage is installed and returns its path
 def getSqlPackageExecutable():
-    programFiles = os.getenv('ProgramFiles')
-    sqlpackage = '{}\\Microsoft SQL Server\\150\\DAC\\bin\\SqlPackage.exe'.format(programFiles)
-    if not os.path.isfile(sqlpackage):
-        print('SqlPackage.exe was not found at: {}'.format(sqlpackage))
-        print('SqlPackage can be downloaded from Microsoft\'s website!')
+    sqlpackage = which('sqlpackage')
+    if not sqlpackage and platform.system() == 'Windows':
+        programFiles = os.getenv('ProgramFiles')
+        sqlpackage = '{}\\Microsoft SQL Server\\150\\DAC\\bin\\SqlPackage.exe'.format(programFiles)
+    if not sqlpackage or not os.path.isfile(sqlpackage):
+        print('It looks like SqlPackage isn\'t installed, it can be downloaded from Microsoft\'s website!')
         quit()
     return sqlpackage
 

@@ -16,7 +16,7 @@ Download the latest build for your OS
 
 The executable requires a `.json` configuration file as input,
 each root element of the JSON document runs a single execution of `sqlpackage`
-with the arguments defined within.  
+with the arguments for the execution defined within.  
 All the possible `sqlpackage` arguments can be found on [_Microsoft's_ website](https://docs.microsoft.com/en-us/sql/tools/sqlpackage?view=sql-server-2017)
 
 Run the executable with your deployment configuration:

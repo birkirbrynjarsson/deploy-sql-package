@@ -6,7 +6,7 @@ Automated database deployment tool that runs 'SqlPackage' from 'Microsoft' based
 `sql-packages` requires an installation of [_SqlPackage_](https://docs.microsoft.com/en-us/sql/tools/sqlpackage-download?view=sql-server-2017)
 from _Microsoft_
 
-It should be accessible from a `PATH`-directory or installed at `%ProgramFiles%\Microsoft Sql Server\150\DAC\bin\SqlPackage.exe` on _Windows_.
+It should be accessible from a directory on `PATH` or installed at `%ProgramFiles%\Microsoft Sql Server\150\DAC\bin\SqlPackage.exe` on _Windows_.
 
 ## Installation
 

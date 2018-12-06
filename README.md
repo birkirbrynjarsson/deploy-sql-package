@@ -58,6 +58,31 @@ Example configuration file: `deply-config.json`
 }
 ```
 
+## Build & Development
+The project uses `pipenv` for managing packages and virtual environment.
+
+If you havent already, install `pipenv` with `pip` or optionally `brew` (MacOS)
+```bash
+pip install pipenv
+```
+
+Install packages:
+```bash
+pipenv install
+```
+
+Run the program within the virtualenv
+```bash
+pipenv run python app.py
+```
+
+Build the program from within the virtualenv with `pyinstaller`
+```bash
+pipenv shell
+pyinstaller --onefile app.py -n sqlpackages
+exit
+```
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 

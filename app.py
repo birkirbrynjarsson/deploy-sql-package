@@ -62,16 +62,15 @@ def getSqlCmdArguments(arguments):
     return args
 
 
-def deployDB(configfile, force=False):
+def deploy(jsondata, force=False):
     sqlPackage = getSqlPackageExecutable()
     sqlcmd = getSqlCmdExecutable()
-    jsondata = json.load(configfile)
     for config in jsondata:
         if jsondata[config]['Action'].lower() == 'sqlcmd':
             process = [sqlcmd] + getSqlCmdArguments(jsondata[config])
         else:
             process = [sqlPackage] + getSqlPackageArguments(jsondata[config])
-        print('\n\n\n--- : {}:\n\t{}\n\n'.format(config, process))
+        print('\n\n--- : {}:\n\t{}\n\n'.format(config, process))
         execution = subprocess.run(process)
         if execution.returncode and not force:
             print('{} - deployment step failed!\nExiting...'.format(config))
@@ -81,4 +80,4 @@ def deployDB(configfile, force=False):
 
 if __name__ == '__main__':
     args = parseargs()
-    deployDB(args.configfile, args.force)
+    deploy(json.load(args.configfile), args.force)

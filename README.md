@@ -1,9 +1,9 @@
-# sql-packages
-Automated database deployment tool that runs 'SqlPackage' from 'Microsoft' based on a JSON configuration file
+# MSSQL Deploy
+Automated SQL Server deployment tool that runs 'SqlPackage' and 'SqlCmd' based on JSON configuration 
 
 ## Requirements
 
-`ms-sql-deploy` requires an installation of [_SqlPackage_](https://docs.microsoft.com/en-us/sql/tools/sqlpackage-download?view=sql-server-2017) and [_SqlCmd_](https://docs.microsoft.com/en-us/sql/tools/sqlcmd-utility?view=sql-server-2017)
+`mssql-deploy` requires an installation of [_SqlPackage_](https://docs.microsoft.com/en-us/sql/tools/sqlpackage-download?view=sql-server-2017) and [_SqlCmd_](https://docs.microsoft.com/en-us/sql/tools/sqlcmd-utility?view=sql-server-2017)
 from _Microsoft_
 
 `SqlPackage` should be accessible from a directory on `PATH` or installed at `%ProgramFiles%\Microsoft Sql Server\150\DAC\bin\SqlPackage.exe` on _Windows_.
@@ -23,7 +23,7 @@ All the possible `sqlpackage` arguments can be found on [_Microsoft's_ website](
 Run the executable with your deployment configuration:
 
 ```bash
-sqlpackages deploy-config.json
+mssql-deploy deploy-config.json
 ```
 
 Example configuration file: `deply-config.json`
@@ -98,7 +98,7 @@ pipenv run python app.py
 Build the program from within the virtualenv with `pyinstaller`
 ```bash
 pipenv shell
-pyinstaller --onefile app.py -n sqlpackages
+pyinstaller --onefile app.py -n mssql-deploy
 exit
 ```
 

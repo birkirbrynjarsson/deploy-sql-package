@@ -29,6 +29,17 @@ def getSqlPackageExecutable():
     return sqlpackage
 
 
+def getSqlCmdExecutable():
+    sqlcmd = which('sqlcmd')
+    if not sqlcmd and platform.system() == 'Windows':
+        programFiles = os.getenv('ProgramFiles')
+        sqlcmd = '{}\\Microsoft SQL Server\\110\\Tools\\Binn\\SQLCMD.exe'.format(programFiles)
+    if not sqlcmd or not os.path.isfile(sqlcmd):
+        print('It looks like SqlCmd isn\'t installed, it can be downloaded from Microsoft\'s website or from within Visual Studio!')
+        quit()
+    return sqlcmd
+
+
 # Takes as input a dictionary of SqlPackage arguments and returns them as a single string
 def getSqlPackageArguments(arguments):
     args = []
@@ -41,15 +52,27 @@ def getSqlPackageArguments(arguments):
     return args
 
 
+def getSqlCmdArguments(arguments):
+    args = []
+    for arg in arguments:
+        if arg == 'Action':
+            continue
+        args.append('-' + arg)
+        args.append(arguments[arg])
+    return args
+
+
 def deployDB(configfile, force=False):
     sqlPackage = getSqlPackageExecutable()
-    configurations = json.load(configfile)
-    
-    for config in configurations:
-        args = getSqlPackageArguments(configurations[config])
-        sqlPackageWithArgs = [sqlPackage] + args
-        print('\n\n\n--- : {}:\n\t{}\n\n'.format(config, sqlPackageWithArgs))
-        execution = subprocess.run(sqlPackageWithArgs)
+    sqlcmd = getSqlCmdExecutable()
+    jsondata = json.load(configfile)
+    for config in jsondata:
+        if jsondata[config]['Action'].lower() == 'sqlcmd':
+            process = [sqlcmd] + getSqlCmdArguments(jsondata[config])
+        else:
+            process = [sqlPackage] + getSqlPackageArguments(jsondata[config])
+        print('\n\n\n--- : {}:\n\t{}\n\n'.format(config, process))
+        execution = subprocess.run(process)
         if execution.returncode and not force:
             print('{} - deployment step failed!\nExiting...'.format(config))
             quit()

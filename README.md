@@ -31,23 +31,23 @@ Example configuration file: `deply-config.json`
 ```json
 {
     "Erp2009_lite-destroy": {
-            "Action": "sqlcmd",
-            "S": "localhost",
-            "U": "SA",
-            "P": "12345678!",
-            "Q": "IF EXISTS(SELECT * FROM sys.databases WHERE name='nav2009_lite') BEGIN ALTER DATABASE [nav2009_lite] SET SINGLE_USER WITH ROLLBACK IMMEDIATE; DROP DATABASE [nav2009_lite]; END"
-        },
-        "Erp2009_lite-deploy": {
-            "Action": "Import",
-            "SourceFile": "nav2009_lite.bacpac",
-            "TargetServerName": "localhost",
-            "TargetDatabaseName": "nav2009_lite",
-            "TargetUser": "SA",
-            "TargetPassword": "12345678!",
-            "p": {
-                "Storage": "File"
-            }
-        },
+        "Action": "sqlcmd",
+        "S": "localhost",
+        "U": "SA",
+        "P": "12345678!",
+        "Q": "IF EXISTS(SELECT * FROM sys.databases WHERE name='nav2009_lite') BEGIN ALTER DATABASE [nav2009_lite] SET SINGLE_USER WITH ROLLBACK IMMEDIATE; DROP DATABASE [nav2009_lite]; END"
+    },
+    "Erp2009_lite-deploy": {
+        "Action": "Import",
+        "SourceFile": "nav2009_lite.bacpac",
+        "TargetServerName": "localhost",
+        "TargetDatabaseName": "nav2009_lite",
+        "TargetUser": "SA",
+        "TargetPassword": "12345678!",
+        "p": {
+            "Storage": "File"
+        }
+    },
     "Production": {
         "Action": "Publish",
         "SourceFile": "development/dev_prod/bin/Debug/dev_prod.dacpac",

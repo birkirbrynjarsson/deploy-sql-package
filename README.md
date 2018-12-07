@@ -3,10 +3,11 @@ Automated database deployment tool that runs 'SqlPackage' from 'Microsoft' based
 
 ## Requirements
 
-`sql-packages` requires an installation of [_SqlPackage_](https://docs.microsoft.com/en-us/sql/tools/sqlpackage-download?view=sql-server-2017)
+`ms-sql-deploy` requires an installation of [_SqlPackage_](https://docs.microsoft.com/en-us/sql/tools/sqlpackage-download?view=sql-server-2017) and [_SqlCmd_](https://docs.microsoft.com/en-us/sql/tools/sqlcmd-utility?view=sql-server-2017)
 from _Microsoft_
 
-It should be accessible from a directory on `PATH` or installed at `%ProgramFiles%\Microsoft Sql Server\150\DAC\bin\SqlPackage.exe` on _Windows_.
+`SqlPackage` should be accessible from a directory on `PATH` or installed at `%ProgramFiles%\Microsoft Sql Server\150\DAC\bin\SqlPackage.exe` on _Windows_.
+`SqlCmd` should be accessible from a directory on `PATH` or installed at `%ProgramFiles%\Microsoft Sql Server\110\Tools\Binn\SQLCMD.exe` on _Windows_.
 
 ## Installation
 
@@ -29,6 +30,24 @@ Example configuration file: `deply-config.json`
 
 ```json
 {
+    "Erp2009_lite-destroy": {
+            "Action": "sqlcmd",
+            "S": "localhost",
+            "U": "SA",
+            "P": "12345678!",
+            "Q": "IF EXISTS(SELECT * FROM sys.databases WHERE name='nav2009_lite') BEGIN ALTER DATABASE [nav2009_lite] SET SINGLE_USER WITH ROLLBACK IMMEDIATE; DROP DATABASE [nav2009_lite]; END"
+        },
+        "Erp2009_lite-deploy": {
+            "Action": "Import",
+            "SourceFile": "nav2009_lite.bacpac",
+            "TargetServerName": "localhost",
+            "TargetDatabaseName": "nav2009_lite",
+            "TargetUser": "SA",
+            "TargetPassword": "12345678!",
+            "p": {
+                "Storage": "File"
+            }
+        },
     "Production": {
         "Action": "Publish",
         "SourceFile": "development/dev_prod/bin/Debug/dev_prod.dacpac",

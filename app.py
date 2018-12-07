@@ -8,10 +8,12 @@ import argparse
 
 def parseargs():
     parser = argparse.ArgumentParser(
-        prog='AGR Database Deployment',
-        description='Database deployment script for AGR db development'
+        prog='SQL Server Database Deployment with SqlPackage',
+        description='MSSQL Database deployment tool that runs executions of SqlPackage from a JSON configuration input file'
     )
     parser.add_argument('configfile', type=argparse.FileType('r'), help='JSON deployment configuration file passed to SqlPackage')
+    parser.add_argument('-f', '--force', dest='force', action='store_true', help='forces continuation of deployment script, ignoring any failing SqlPackage execution')
+    # args set as global variable
     return parser.parse_args()
 
 
@@ -39,7 +41,7 @@ def getSqlPackageArguments(arguments):
     return args
 
 
-def deployDB(configfile):
+def deployDB(configfile, force=False):
     sqlPackage = getSqlPackageExecutable()
     configurations = json.load(configfile)
     
@@ -47,10 +49,13 @@ def deployDB(configfile):
         args = getSqlPackageArguments(configurations[config])
         sqlPackageWithArgs = [sqlPackage] + args
         print('\n\n\n--- : {}:\n\t{}\n\n'.format(config, sqlPackageWithArgs))
-        subprocess.run(sqlPackageWithArgs)
+        execution = subprocess.run(sqlPackageWithArgs)
+        if execution.returncode and not force:
+            print('{} - deployment step failed!\nExiting...'.format(config))
+            quit()
 
 
 
 if __name__ == '__main__':
     args = parseargs()
-    deployDB(args.configfile)
+    deployDB(args.configfile, args.force)

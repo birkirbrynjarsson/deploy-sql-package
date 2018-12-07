@@ -25,7 +25,7 @@
             "CreateNewDatabase": true
         },
         "v": {
-            "ERP_DB_NAME": "nav2009",
+            "ERP_DB_NAME": "nav2009_lite",
             "AGR_PROD_DB_NAME": "agr_prod",
             "AGR_STG_DB_NAME": "agr_stg_nav2009"
         }

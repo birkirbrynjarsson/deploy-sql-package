@@ -6,8 +6,11 @@ Automated SQL Server deployment tool that runs 'SqlPackage' and 'SqlCmd' based o
 `mssql-deploy` requires an installation of [_SqlPackage_](https://docs.microsoft.com/en-us/sql/tools/sqlpackage-download?view=sql-server-2017) and [_SqlCmd_](https://docs.microsoft.com/en-us/sql/tools/sqlcmd-utility?view=sql-server-2017)
 from _Microsoft_
 
-`SqlPackage` should be accessible from a directory on `PATH` or installed at `%ProgramFiles%\Microsoft Sql Server\150\DAC\bin\SqlPackage.exe` on _Windows_.
-`SqlCmd` should be accessible from a directory on `PATH` or installed at `%ProgramFiles%\Microsoft Sql Server\110\Tools\Binn\SQLCMD.exe` on _Windows_.
+`SqlPackage` and `SqlCmd` should be accessible from a directory on `PATH`
+
+On Windows the tool also looks for the executalbes at:  
+`%ProgramFiles%\Microsoft Sql Server\150\DAC\bin\SqlPackage.exe` and  
+`%ProgramFiles%\Microsoft Sql Server\110\Tools\Binn\SQLCMD.exe` respectively.
 
 ## Installation
 

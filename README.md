@@ -46,10 +46,7 @@ Example configuration file: `deply-config.json`
         "TargetServerName": "localhost",
         "TargetDatabaseName": "nav2009_lite",
         "TargetUser": "SA",
-        "TargetPassword": "12345678!",
-        "p": {
-            "Storage": "File"
-        }
+        "TargetPassword": "12345678!"
     },
     "Production": {
         "Action": "Publish",

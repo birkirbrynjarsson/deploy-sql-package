@@ -3,6 +3,7 @@ import os
 import platform
 from shutil import which
 import subprocess
+import sys
 
 import argparse
 
@@ -25,7 +26,7 @@ def getSqlPackageExecutable():
         sqlpackage = '{}\\Microsoft SQL Server\\150\\DAC\\bin\\SqlPackage.exe'.format(programFiles)
     if not sqlpackage or not os.path.isfile(sqlpackage):
         print('It looks like SqlPackage isn\'t installed, it can be downloaded from Microsoft\'s website!')
-        quit()
+        sys.exit()
     return sqlpackage
 
 
@@ -36,7 +37,7 @@ def getSqlCmdExecutable():
         sqlcmd = '{}\\Microsoft SQL Server\\110\\Tools\\Binn\\SQLCMD.exe'.format(programFiles)
     if not sqlcmd or not os.path.isfile(sqlcmd):
         print('It looks like SqlCmd isn\'t installed, it can be downloaded from Microsoft\'s website or from within Visual Studio!')
-        quit()
+        sys.exit()
     return sqlcmd
 
 
@@ -74,7 +75,7 @@ def deploy(jsondata, force=False):
         execution = subprocess.run(process)
         if execution.returncode and not force:
             print('{} - deployment step failed!\nExiting...'.format(config))
-            quit()
+            sys.exit()
 
 
 

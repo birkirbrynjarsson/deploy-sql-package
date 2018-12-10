@@ -1,5 +1,6 @@
 import json
 import os
+from pathlib import Path
 import platform
 from shutil import which
 import subprocess
@@ -41,8 +42,16 @@ def getSqlCmdExecutable():
     return sqlcmd
 
 
+def convertSqlPackageFilePathsForWindows(sqlPackageArguments):
+    for key in sqlPackageArguments:
+        if str(key) in ['SourceFile', 'sf', 'TargetFile', 'tf', 'DiagnosticsFile', 'df', 'DeployScriptPath', 'dsp', 'Profile', 'pr',]:
+            sqlPackageArguments[key] = str(Path(sqlPackageArguments[key]))
+
+
 # Takes as input a dictionary of SqlPackage arguments and returns them as a single string
 def getSqlPackageArguments(arguments):
+    if platform.system() == 'Windows':
+        convertSqlPackageFilePathsForWindows(arguments)
     args = []
     for arg in arguments:
         if type(arguments[arg]) is dict:

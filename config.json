@@ -1,7 +1,7 @@
 {
     "Erp2009_lite-destroy": {
         "Action": "sqlcmd",
-        "S": "10.0.2.2",
+        "S": "localhost",
         "U": "SA",
         "P": "12345678!",
         "Q": "IF EXISTS(SELECT * FROM sys.databases WHERE name='nav2009_lite') BEGIN ALTER DATABASE [nav2009_lite] SET SINGLE_USER WITH ROLLBACK IMMEDIATE; DROP DATABASE [nav2009_lite]; END"
@@ -9,19 +9,16 @@
     "Erp2009_lite-deploy": {
         "Action": "Import",
         "SourceFile": "nav2009_lite.bacpac",
-        "TargetServerName": "10.0.2.2",
+        "TargetServerName": "localhost",
         "TargetDatabaseName": "nav2009_lite",
         "TargetUser": "SA",
-        "TargetPassword": "12345678!",
-        "p": {
-            "Storage": "File"
-        }
+        "TargetPassword": "12345678!"
     },
     "Production": {
         "Action": "Publish",
-        "SourceFile": "development\\dev_prod\\bin\\Debug\\dev_prod.dacpac",
+        "SourceFile": "development/dev_prod/bin/Debug/dev_prod.dacpac",
         "TargetDatabaseName": "agr_prod",
-        "TargetServerName": "10.0.2.2",
+        "TargetServerName": "localhost",
         "TargetUser": "SA",
         "TargetPassword": "12345678!",
         "p": {
@@ -32,9 +29,9 @@
     },
     "Staging": {
         "Action": "Publish",
-        "SourceFile": "development\\dev_stg_nav2009\\bin\\Debug\\dev_stg_nav2009.dacpac",
+        "SourceFile": "development/dev_stg_nav2009/bin/Debug/dev_stg_nav2009.dacpac",
         "TargetDatabaseName": "agr_stg_nav2009",
-        "TargetServerName": "10.0.2.2",
+        "TargetServerName": "localhost",
         "TargetUser": "SA",
         "TargetPassword": "12345678!",
         "p": {
